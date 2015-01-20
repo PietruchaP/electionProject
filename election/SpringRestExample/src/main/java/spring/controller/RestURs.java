@@ -1,4 +1,4 @@
-package com.journaldev.spring.controller;
+package spring.controller;
 
 public class RestURs {
 

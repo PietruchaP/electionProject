@@ -1,4 +1,4 @@
-package com.journaldev.spring.controller;
+package spring.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.journaldev.spring.controller.RestURs;
+import spring.controller.RestURs;
 
 @Controller
 //@RequestMapping(value="/zipCode")
