@@ -1,4 +1,4 @@
-package controller;
+package com.journaldev.spring.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import controller.RestURs;
+import com.journaldev.spring.controller.RestURs;
 
 @Controller
 //@RequestMapping(value="/zipCode")
@@ -24,8 +24,8 @@ public class Controler {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Controler.class);
 	
-	@Autowired
-	private Manager manager;
+	//@Autowired
+	//private Manager manager;
 	Map<Integer, ZipCodes> empData = new HashMap<Integer, ZipCodes>();
 	
 	@RequestMapping(value = RestURs.DUMMY, method = RequestMethod.GET)
