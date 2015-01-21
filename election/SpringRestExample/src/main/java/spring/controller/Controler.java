@@ -26,7 +26,7 @@ public class Controler {
 	
 	//@Autowired
 	//private Manager manager;
-	Map<Integer, ZipCodes> empData = new HashMap<Integer, ZipCodes>();
+	Map<Integer, ZipCodes> zipCodesData = new HashMap<Integer, ZipCodes>();
 	
 	@RequestMapping(value = RestURs.DUMMY, method = RequestMethod.GET)
 	public @ResponseBody ZipCodes getDummy() {
@@ -40,7 +40,7 @@ public class Controler {
 	public @ResponseBody ZipCodes getZipCode(@PathVariable("id") int zipCodeId) {
 		logger.info("Start getZipCode ID="+zipCodeId);
 		
-		return empData.get(zipCodeId);
+		return zipCodesData.get(zipCodeId);
 	}
 	
 }
