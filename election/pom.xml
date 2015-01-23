@@ -26,7 +26,7 @@
  	 <module>votingProgram</module>
  	 <module>dateBaseCore</module>
  	 <module>transfer</module>
- 	 <module>RestWebService</module>
+ 	 <module>SpringRestExample</module>
  	 
   </modules>
   
