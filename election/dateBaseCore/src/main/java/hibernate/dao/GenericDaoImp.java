@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import java.util.Iterator;
@@ -17,9 +18,10 @@ import hibernate.dao.GenericDAO;
 public abstract class GenericDaoImp<T> implements GenericDAO<T> {
 
 	
+	@PersistenceContext
+//	@PersistenceContext(unitName = "myPersistenceUnit")
 	protected EntityManager em;
 	
-	@PersistenceContext
 	public void setEm(EntityManager em) {
 		this.em = em;
 	}
