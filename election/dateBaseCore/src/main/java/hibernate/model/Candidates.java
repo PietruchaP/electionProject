@@ -24,9 +24,9 @@ public class Candidates {
 	@Column(name = "surname")
 	private String surname;
 	
-	@Transient
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "zip_codes_id")
+//	@Transient
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "zip_codes_id")
 	private ZipCodes zipCode;
 
 	public Candidates() {

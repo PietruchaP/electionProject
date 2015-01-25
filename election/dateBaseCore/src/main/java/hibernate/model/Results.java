@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 //przeksztalcamy baze
-@Entity
-@Table (name = "results")
+//@Entity
+//@Table (name = "results")
 @AssociationOverrides({
 	@AssociationOverride(name = "pk.voters", joinColumns = @JoinColumn(name="voters_id")),
 	@AssociationOverride(name = "pk.elections", joinColumns = @JoinColumn(name="elections_id")),

@@ -1,11 +1,13 @@
 package hibernate.service;
 
+import javax.transaction.Transactional;
+
 import hibernate.dao.ZipCodesDAO;
 import hibernate.model.ZipCodes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+@Transactional
 @Service
 public class ManagerImpl implements Manager{
 
