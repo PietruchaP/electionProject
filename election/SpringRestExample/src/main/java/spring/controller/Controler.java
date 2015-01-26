@@ -24,9 +24,11 @@ public class Controler {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Controler.class);
 	
-	//@Autowired
-	//private Manager manager;
+	@Autowired
+	private Manager manager;
+	
 	Map<Integer, ZipCodes> zipCodesData = new HashMap<Integer, ZipCodes>();
+	
 	
 	@RequestMapping(value = RestURs.DUMMY, method = RequestMethod.GET)
 	public @ResponseBody ZipCodes getDummy() {
@@ -39,8 +41,12 @@ public class Controler {
 	@RequestMapping(value = RestURs.GET_ZIPCODE, method = RequestMethod.GET)
 	public @ResponseBody ZipCodes getZipCode(@PathVariable("id") int zipCodeId) {
 		logger.info("Start getZipCode ID="+zipCodeId);
-		
-		return zipCodesData.get(zipCodeId);
+		ZipCodes zipCode = new ZipCodes();
+		zipCode.setId(zipCodeId);
+		manager.retriveZipCode(zipCode);
+	//	return zipCodesData.get(zipCodeId);
+		//return zipCode;
+		return manager.retriveZipCode(zipCode);
 	}
 	
 }

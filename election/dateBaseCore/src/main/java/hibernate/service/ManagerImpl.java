@@ -24,8 +24,8 @@ public class ManagerImpl implements Manager{
 	}
 
 	@Override
-	public void retriveZipCode(ZipCodes zipCode) {
-		zipCodeDAO.retrive(zipCode.getId());	
+	public ZipCodes retriveZipCode(ZipCodes zipCode) {
+		return zipCodeDAO.retrive(zipCode.getId());	
 	}
 
 	@Override
