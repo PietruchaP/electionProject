@@ -1,7 +1,10 @@
 package spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import hibernate.model.ZipCodes;
 import hibernate.service.Manager;
@@ -44,9 +47,11 @@ public class Controler {
 		ZipCodes zipCode = new ZipCodes();
 		zipCode.setId(zipCodeId);
 		manager.retriveZipCode(zipCode);
-	//	return zipCodesData.get(zipCodeId);
-		//return zipCode;
 		return manager.retriveZipCode(zipCode);
 	}
 	
+	 @RequestMapping(value =  RestURs.GET_ALL_ZIPCODES, method = RequestMethod.GET)
+	    public @ResponseBody List<ZipCodes> getAllZipCodes() {
+	        return manager.findAllZipCode();
+	    }
 }

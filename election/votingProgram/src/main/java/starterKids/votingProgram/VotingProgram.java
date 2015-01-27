@@ -47,8 +47,6 @@ public class VotingProgram
 	}
 	
 	private static void connectWithDatebase(){
-		//MainConnectionWithDateBase hibernateConnection = new MainConnectionWithDateBase();
-		//hibernateConnection.connectWithDatebase();
 		SpringConnectionWithBase connectBase = new SpringConnectionWithBase();
 		connectBase.connectWithDateBase();
 	}

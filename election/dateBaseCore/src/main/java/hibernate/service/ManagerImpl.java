@@ -1,5 +1,7 @@
 package hibernate.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import hibernate.dao.ZipCodesDAO;
@@ -36,6 +38,11 @@ public class ManagerImpl implements Manager{
 	@Override
 	public void deleteZipCode(ZipCodes zipCode) {
 		zipCodeDAO.delete(zipCode.getId());	
+	}
+	
+	@Override
+	public List<ZipCodes> findAllZipCode(){
+		return zipCodeDAO.findAll();
 	}
 
 	
