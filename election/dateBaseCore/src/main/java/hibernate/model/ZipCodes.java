@@ -15,6 +15,8 @@ public class ZipCodes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) @Column (name="id")
 	private int id;
+	@Column (name ="zip_code")
+	private String zipCodes;
 	
 	public int getId() {
 		return id;
@@ -22,8 +24,6 @@ public class ZipCodes {
 	public void setId(int id) {
 		this.id = id;
 	}
-	@Column (name ="zip_code")
-	private String zipCodes;
 	
 	public String getZipCodes() {
 		return zipCodes;

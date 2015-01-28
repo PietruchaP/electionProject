@@ -23,7 +23,7 @@ public class Voters {
 	public ZipCodes getZipCode() {
 		return zipCode;
 	}
-	public void setZipCode(ZipCodes zip_Code){
-		zipCode = zip_Code;
+	public void setZipCode(ZipCodes zipCode){
+		this.zipCode = zipCode;
 	}
 }

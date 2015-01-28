@@ -56,7 +56,14 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
+		</dependency>	
+						<!--  Own module -->
+		<dependency>
+		<groupId>com.starterKids</groupId>
+		<artifactId>transfer</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
 		
 	</dependencies>
 </project>

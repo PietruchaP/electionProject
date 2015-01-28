@@ -13,6 +13,9 @@ public class Candidates {
 	private String surname;	
 	private ZipCodes zipCode;
 	
+	public Candidates(){
+		
+	}
 	public int getId() {
 		return id;
 	}

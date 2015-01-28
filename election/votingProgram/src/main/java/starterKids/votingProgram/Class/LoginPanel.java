@@ -62,13 +62,13 @@ public class LoginPanel extends JPanel {
 				zipCodeBox = new JComboBox<String>();
 				//MainConnectionWithDateBase hibernateConnection = new MainConnectionWithDateBase(); // tutaj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				
-				Zip_CodesOperation crudOperation = new Zip_CodesOperation();
-				String loadZipCode;
-				for(int i = 0;i<9;i++){
-					loadZipCode = crudOperation.retrieveZip(i);
-					zipCodeBox.addItem(loadZipCode);
+//				Zip_CodesOperation crudOperation = new Zip_CodesOperation();
+//				String loadZipCode;
+//				for(int i = 0;i<9;i++){
+//					loadZipCode = crudOperation.retrieveZip(i);
+//					zipCodeBox.addItem(loadZipCode);
 					
-				}
+//				}
 				
 				addListenerToZipCodeBox();
 			}

@@ -45,6 +45,11 @@
 			<artifactId>dateBaseCore</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.starterKids</groupId>
+			<artifactId>transfer</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	
   <properties>

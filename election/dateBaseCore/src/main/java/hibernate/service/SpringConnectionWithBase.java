@@ -39,10 +39,9 @@ public class SpringConnectionWithBase {
 	private void zipCodeNewChoice(){
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		Manager manager = context.getBean(ManagerImpl.class);		  
-		//Manager manager = new ManagerImpl();
 		ZipCodesDAO zipCodeDAO = context.getBean(ZipCodesDAO.class);		
 		ZipCodes zipcode = new ZipCodes();
-		zipcode.setZipCodes("32-221");
+		zipcode.setZipCodes("53-555");
 		manager.insertZipCode(zipcode);
 		context.close();
 	}

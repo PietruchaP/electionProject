@@ -16,15 +16,21 @@ public class Voters {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) @Column (name="id")
 	private int id;
+	
+	@Column (name="pesel")
+	private String pesel;
+	
+	@ManyToOne
+	@JoinColumn (name = "zip_codes_id")
+	private ZipCodes zipCode;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	@Column (name="pesel")
-	private String pesel;
+
 	public String getPesel() {
 		return pesel;
 	}
@@ -32,13 +38,10 @@ public class Voters {
 		this.pesel = pesel;
 	}
 	
-	@ManyToOne
-	@JoinColumn (name = "zip_codes_id")
-	private ZipCodes zipCode;
-	public ZipCodes getZip_Code() {
+	public ZipCodes getZipCode() {
 		return zipCode;
 	}
-	public void setZip_Code(ZipCodes zipCode){
+	public void setZipCode(ZipCodes zipCode){
 		this.zipCode = zipCode;
 	}
 }

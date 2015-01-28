@@ -57,11 +57,11 @@ public class Candidates {
 	}
 
 
-	public ZipCodes getZip_Code() {
+	public ZipCodes getZipCode() {
 		return zipCode;
 	}
 
-	public void setZip_Code(ZipCodes zipCode) {
+	public void setZipCode(ZipCodes zipCode) {
 		this.zipCode = zipCode;
 	}
 }
