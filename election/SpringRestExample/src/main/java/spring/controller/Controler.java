@@ -1,10 +1,6 @@
 package spring.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import hibernate.model.ZipCodes;
 import hibernate.service.Manager;
@@ -29,9 +25,6 @@ public class Controler {
 	
 	@Autowired
 	private Manager manager;
-	
-	Map<Integer, ZipCodes> zipCodesData = new HashMap<Integer, ZipCodes>();
-	
 	
 	@RequestMapping(value = RestURs.DUMMY, method = RequestMethod.GET)
 	public @ResponseBody ZipCodes getDummy() {

@@ -15,6 +15,7 @@ public abstract class ConvertGenericTOsWithBOs<TO,BO> implements ConvertGeneric<
 	public void ConvertToToBo(TO genericTO){
 		//BO genericBO = new BO();
 		//genericTO.getClass().getMethods()[0].invoke(genericBO, null);
+		
 	}
 	
 	public void ConvertBoToTo(){

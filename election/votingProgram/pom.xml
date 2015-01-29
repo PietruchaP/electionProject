@@ -50,6 +50,12 @@
 			<artifactId>transfer</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.starterKids</groupId>
+			<artifactId>SpringRestExample</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 	</dependencies>
 	
   <properties>

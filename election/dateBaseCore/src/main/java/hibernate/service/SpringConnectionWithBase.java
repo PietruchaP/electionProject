@@ -41,7 +41,7 @@ public class SpringConnectionWithBase {
 		Manager manager = context.getBean(ManagerImpl.class);		  
 		ZipCodesDAO zipCodeDAO = context.getBean(ZipCodesDAO.class);		
 		ZipCodes zipcode = new ZipCodes();
-		zipcode.setZipCodes("53-555");
+		zipcode.setZipCodes("59-777");
 		manager.insertZipCode(zipcode);
 		context.close();
 	}
