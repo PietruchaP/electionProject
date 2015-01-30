@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import spring.controller.RestURs;
 
 @Controller
-//@RequestMapping(value="/zipCode")
 public class Controler {
 	
 	

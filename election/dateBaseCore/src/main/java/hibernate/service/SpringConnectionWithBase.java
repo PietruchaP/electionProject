@@ -9,14 +9,15 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringConnectionWithBase {
 
+	ClassPathXmlApplicationContext context;
 	static Scanner scan = new Scanner(System.in);
 	
 	
-	public SpringConnectionWithBase (){
-		connectWithDateBase();
+	public SpringConnectionWithBase (ClassPathXmlApplicationContext context){
+		this.context = context;
 	}
 	
-	public void connectWithDateBase(){
+	public void dateBaseMenu(){
 		
 		int mainWindowChoice;
 		
@@ -26,7 +27,7 @@ public class SpringConnectionWithBase {
 		mainWindowChoice = scan.nextInt();
 		switch(mainWindowChoice){
 		case 1:
-				zipCodeNewChoice();
+				createZipCode();
 			break;		
 		case 2:		
 				System.exit(0);
@@ -36,12 +37,11 @@ public class SpringConnectionWithBase {
 		}
 	}
 	
-	private void zipCodeNewChoice(){
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+	private void createZipCode(){
 		Manager manager = context.getBean(ManagerImpl.class);		  
 		ZipCodesDAO zipCodeDAO = context.getBean(ZipCodesDAO.class);		
 		ZipCodes zipcode = new ZipCodes();
-		zipcode.setZipCodes("59-777");
+		zipcode.setZipCodes("60-777");
 		manager.insertZipCode(zipcode);
 		context.close();
 	}

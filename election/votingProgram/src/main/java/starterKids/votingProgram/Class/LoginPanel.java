@@ -1,15 +1,13 @@
 package starterKids.votingProgram.Class;
 
-
-import hibernate.Operation.Zip_CodesOperation;
-import hibernate.service.MainConnectionWithDateBase;
-
 import java.awt.Component;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -20,8 +18,13 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.springframework.web.client.RestTemplate;
+
+import spring.controller.RestURs;
+
 public class LoginPanel extends JPanel {
 
+	public static final String SERVER_URI = "http://localhost:8080/SpringRestExample";
 	/**
 	 * 
 	 */
@@ -36,8 +39,7 @@ public class LoginPanel extends JPanel {
 	
 	private JTextField peselField;
 	private JComboBox<String> zipCodeBox;	
-	//static final String gapList[] = {"","45-234", "73-410", "73-215", "43-420"};
-    final static int maxGap = 20;
+
     private ActionListener loginButtonListener; 
     
 	LoginPanel(ActionListener mlistener){
@@ -58,20 +60,23 @@ public class LoginPanel extends JPanel {
 				loginButton.setEnabled(false);	
 			}
 			private void createZipCodeBox() {
-			//	zipCodeBox = new JComboBox<String>(gapList);
+
 				zipCodeBox = new JComboBox<String>();
-				//MainConnectionWithDateBase hibernateConnection = new MainConnectionWithDateBase(); // tutaj!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				
-//				Zip_CodesOperation crudOperation = new Zip_CodesOperation();
-//				String loadZipCode;
-//				for(int i = 0;i<9;i++){
-//					loadZipCode = crudOperation.retrieveZip(i);
-//					zipCodeBox.addItem(loadZipCode);
-					
-//				}
-				
+				String zipCode;
+
+				RestTemplate restTemplate = new RestTemplate();
+				//we can't get List<Employee> because JSON convertor doesn't know the type of
+				//object in the list and hence convert it to default JSON object type LinkedHashMap
+				List<LinkedHashMap> zipCodes = restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_ZIPCODES, List.class);
+				System.out.println(zipCodes.size());
+				for(LinkedHashMap map : zipCodes){
+				//	System.out.println("ID="+map.get("id")+",Zipcode="+map.get("zipCodes"));
+					zipCode = (String) map.get("zipCodes");
+					zipCodeBox.addItem(zipCode);
+				}
 				addListenerToZipCodeBox();
 			}
+
 			private void createPeselField() {
 				peselField = new JTextField();
 				peselField.setBounds(217, 5, 106, 228);
