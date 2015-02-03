@@ -10,20 +10,16 @@
   <url>http://maven.apache.org</url>
 	
 	<parent>
-	<groupId>com.starterKids</groupId>
-	<artifactId>election</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+		<groupId>com.starterKids</groupId>
+		<artifactId>election</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-		
+	
 	<dependencies>
 	 	<dependency>
 		<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
-<!--   		<dependency> -->
-<!-- 			<groupId>org.hibernate</groupId> -->
-<!-- 			<artifactId>hibernate-annotations</artifactId> -->
-<!-- 		</dependency> -->
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-entitymanager</artifactId>
@@ -39,6 +35,13 @@
 			<artifactId>hibernate-commons-annotations</artifactId>
 		</dependency>
 	
+	
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20141113</version>
+		</dependency>
+	
 		<!--  OWN MODULE -->
 		<dependency>
 			<groupId>com.starterKids</groupId>
@@ -50,16 +53,12 @@
 			<artifactId>transfer</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.starterKids</groupId>
-			<artifactId>SpringRestExample</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		
 	</dependencies>
 	
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    		<java-version>1.8</java-version>
   </properties>
 
 </project>

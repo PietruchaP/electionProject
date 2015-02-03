@@ -1,11 +1,14 @@
 package starterKids.votingProgram.Class;
 
+import hibernate.model.ZipCodes;
+
 import java.awt.Component;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -17,10 +20,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.xml.bind.JAXBException;
 
 import org.springframework.web.client.RestTemplate;
 
-import spring.controller.RestURs;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import escapeObjectMapper.CustomObjectMapper;
+import restURls.RestURs;
 
 public class LoginPanel extends JPanel {
 
@@ -63,20 +73,57 @@ public class LoginPanel extends JPanel {
 
 				zipCodeBox = new JComboBox<String>();
 				String zipCode;
-
+				
 				RestTemplate restTemplate = new RestTemplate();
 				//we can't get List<Employee> because JSON convertor doesn't know the type of
 				//object in the list and hence convert it to default JSON object type LinkedHashMap
 				List<LinkedHashMap> zipCodes = restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_ZIPCODES, List.class);
+				
 				System.out.println(zipCodes.size());
 				for(LinkedHashMap map : zipCodes){
 				//	System.out.println("ID="+map.get("id")+",Zipcode="+map.get("zipCodes"));
-					zipCode = (String) map.get("zipCodes");
-					zipCodeBox.addItem(zipCode);
+					//zipCode = (String) map.get("zipCodes");
+				
+				Object sZipCode = null;
+				String z = "/1";
+				
+			//	zipCode = zipCodes.toString();
+				
+				//sZipCode = json2PojoZipCodes(zipCode);
+				
+			//	JSONPObject obj = new JSONPObject(zipCode, szipCode);
+			//	szipCode = obj;
+				ZipCodes temporaryZipCode = (ZipCodes) sZipCode;
+			
+				//	zipCodeBox.addItem(zipCode);
+				//System.out.println(temporaryZipCode.getZipCodes());
+				zipCodeBox.addItem(temporaryZipCode.getZipCodes());
 				}
 				addListenerToZipCodeBox();
 			}
 
+			
+			
+			private Object json2PojoZipCodes(String jsonString){
+		        CustomObjectMapper objectMapper = new CustomObjectMapper();
+		        ZipCodes zip = null;
+				try {
+					zip = objectMapper.readValue(jsonString,
+					        ZipCodes.class);
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        Object object = (Object) zip;
+		        return object;
+		    }
+			
 			private void createPeselField() {
 				peselField = new JTextField();
 				peselField.setBounds(217, 5, 106, 228);

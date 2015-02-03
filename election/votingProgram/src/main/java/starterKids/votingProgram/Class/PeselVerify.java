@@ -59,7 +59,7 @@ public class PeselVerify {
 	}
 	
 	public boolean isDateAfterBirthDate(){
-		Date todayDate = new Date(); /// temporary (need to take date frome internet not from computer
+		Date todayDate = new Date();
 		return (todayDate.after(birthDate)) ? true : false;
 	}
 	public boolean isControlSumCorrect() {
@@ -170,5 +170,11 @@ public class PeselVerify {
 		
 		public int getControlValue() {
 			return controlValue;
+		}
+		
+		public boolean verifyWithBase(){
+			
+			
+			return false;
 		}
 }

@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import spring.controller.RestURs;
-
 @Controller
 public class Controler {
 	
@@ -46,4 +44,7 @@ public class Controler {
 	    public @ResponseBody List<ZipCodes> getAllZipCodes() {
 	        return manager.findAllZipCode();
 	    }
+	// @RequestMapping(.................)
+	// public void createZipCode(@RequestBody ZipCodes zipCode){ .create.
+	 
 }

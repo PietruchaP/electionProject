@@ -6,6 +6,9 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>transfer</artifactId>
+  <properties>
+		<java-version>1.8</java-version>
+</properties>	
   <dependencies> 
   	<dependency> 
   		<groupId>com.fasterxml.jackson.core</groupId> 
