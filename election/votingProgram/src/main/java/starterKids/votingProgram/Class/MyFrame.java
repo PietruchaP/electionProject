@@ -27,7 +27,6 @@ public class MyFrame{
 			
 			replyPanel = new ResultPanel(selectedCandidate);
 			changePanel(replyPanel.getPanel());
-			// JOptionPane.showMessageDialog(null, selectedCandidate);
 		}
 	};
 	
@@ -37,12 +36,16 @@ public class MyFrame{
 			PeselVerify peselVerification = new PeselVerify(loginPanel.getPeselField().getText());
 	    	if(peselVerification.isPeselCorrect()){
 			    frame.setTitle("Okręg wyborczy:"+ loginPanel.getPeselField().getText());
+			    myCandidatePanel.setCandidateList(loginPanel.getZipek());
+			    myCandidatePanel.createCandidateAndAddToCandidatePanel();
 				changePanel(myCandidatePanel.getPanel());
 	    	}
 	    	else
 	    		JOptionPane.showMessageDialog(null, "Błedny Pesel, wprowadz poprawny");
 		}
 	};
+	
+	
 	
     public MyFrame(String name) {		
     	createFrame(name);	

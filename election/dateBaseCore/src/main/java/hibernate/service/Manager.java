@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import hibernate.model.Candidates;
+import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
 
 public interface Manager {
@@ -17,4 +19,8 @@ public interface Manager {
 	public void deleteZipCode(ZipCodes zipCode);
 	@Transactional
 	public List<ZipCodes> findAllZipCode();
+	@Transactional
+	public List<Voters> findAllVoters();
+	@Transactional
+	public List<Candidates> findAllCandidates();
 }

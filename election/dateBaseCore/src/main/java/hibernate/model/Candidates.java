@@ -19,13 +19,14 @@ public class Candidates {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private int id;
-	@Column(name = "firsname")
+	@Column(name = "firstname")
 	private String firstname;
 	@Column(name = "surname")
 	private String surname;
 	
 //	@Transient
-	@ManyToOne(fetch = FetchType.LAZY)
+//@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "zip_codes_id")
 	private ZipCodes zipCode;
 

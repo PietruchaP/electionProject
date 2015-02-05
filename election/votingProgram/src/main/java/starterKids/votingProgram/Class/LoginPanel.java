@@ -1,5 +1,6 @@
 package starterKids.votingProgram.Class;
 
+import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
 
 import java.awt.Component;
@@ -8,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
@@ -20,16 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.xml.bind.JAXBException;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
-import escapeObjectMapper.CustomObjectMapper;
 import restURls.RestURs;
 
 public class LoginPanel extends JPanel {
@@ -46,17 +40,30 @@ public class LoginPanel extends JPanel {
 	private JPanel buttonPanel = new JPanel();	
 	
 	private JButton loginButton;
-	
+
 	private JTextField peselField;
 	private JComboBox<String> zipCodeBox;	
 
     private ActionListener loginButtonListener; 
     
+	private List<Voters> voters = null;
+	private List<Voters> actualVoters = new ArrayList<Voters>();
+	private List<ZipCodes> zips = new ArrayList<ZipCodes>();
+	private ZipCodes zipek = new ZipCodes();
+	
+	public ZipCodes getZipek() {
+		return zipek;
+	}
+
 	LoginPanel(ActionListener mlistener){
 		loginButtonListener = mlistener;
 		createElementsForPanels();
 		addElementsToSubPanels();
 		addElementToLoginPanel();
+		// TEMPORARY This under that line//
+		RestTemplate restTemplate = new RestTemplate();
+		voters = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_PESEL, Voters[].class));
+	    
 	}
 	
 		private void createElementsForPanels(){
@@ -72,57 +79,18 @@ public class LoginPanel extends JPanel {
 			private void createZipCodeBox() {
 
 				zipCodeBox = new JComboBox<String>();
-				String zipCode;
 				
 				RestTemplate restTemplate = new RestTemplate();
-				//we can't get List<Employee> because JSON convertor doesn't know the type of
-				//object in the list and hence convert it to default JSON object type LinkedHashMap
-				List<LinkedHashMap> zipCodes = restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_ZIPCODES, List.class);
-				
-				System.out.println(zipCodes.size());
-				for(LinkedHashMap map : zipCodes){
-				//	System.out.println("ID="+map.get("id")+",Zipcode="+map.get("zipCodes"));
-					//zipCode = (String) map.get("zipCodes");
-				
-				Object sZipCode = null;
-				String z = "/1";
-				
-			//	zipCode = zipCodes.toString();
-				
-				//sZipCode = json2PojoZipCodes(zipCode);
-				
-			//	JSONPObject obj = new JSONPObject(zipCode, szipCode);
-			//	szipCode = obj;
-				ZipCodes temporaryZipCode = (ZipCodes) sZipCode;
-			
-				//	zipCodeBox.addItem(zipCode);
-				//System.out.println(temporaryZipCode.getZipCodes());
-				zipCodeBox.addItem(temporaryZipCode.getZipCodes());
+
+				zips = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_ZIPCODES, ZipCodes[].class));
+			       
+				zipCodeBox.addItem("");
+				for(int i=0;i<zips.size();i++){
+					zipCodeBox.addItem(zips.get(i).getZipCodes());
 				}
+
 				addListenerToZipCodeBox();
 			}
-
-			
-			
-			private Object json2PojoZipCodes(String jsonString){
-		        CustomObjectMapper objectMapper = new CustomObjectMapper();
-		        ZipCodes zip = null;
-				try {
-					zip = objectMapper.readValue(jsonString,
-					        ZipCodes.class);
-				} catch (JsonParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        Object object = (Object) zip;
-		        return object;
-		    }
 			
 			private void createPeselField() {
 				peselField = new JTextField();
@@ -204,30 +172,70 @@ public class LoginPanel extends JPanel {
 			    changed();
 			  }
 			  public void changed() {
-				  loginButton.setEnabled(checkIfLoginButtonAvailable());
-			  }
-			  
+				  if(ifPeselLenghtCorrect()==true){
+					  loginButton.setEnabled(checkIfLoginButtonAvailable());
+				  }
+				  else{
+					 loginButton.setEnabled(false);
+				  }
+			  } 
 		});		 
 	}
 	
 	public void addListenerToZipCodeBox(){
 		 zipCodeBox.addActionListener(new ActionListener() {		
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {
+				saveCorrectZipCode();
+				loadNewPeselsFromBase();
 				loginButton.setEnabled(checkIfLoginButtonAvailable());
+			}
+
+			private void saveCorrectZipCode() {
+				
+				for(int i =0; i< zips.size();i++){
+					if(zips.get(i).getZipCodes().equals(zipCodeBox.getSelectedItem().toString())){
+						zipek = zips.get(i);
+					}
+				}
+				
+			}
+
+			private void loadNewPeselsFromBase() {
+				actualVoters.clear();
+				System.out.println(zipek.getId());
+				for(int i =0; i< voters.size();i++){
+					if(voters.get(i).getZipCode().getId()==(zipek.getId())){
+						actualVoters.add(voters.get(i));
+					}
+				}
+				
 			}
 		});
 	}   
 		public boolean checkIfLoginButtonAvailable() {	
-			 boolean peselNumberIsNumeric = ifPeselCorrect();
+			 boolean peselLenghtCorrection = ifPeselLenghtCorrect();
 			 boolean comboBoxIsTaken = ifComboBoxCorrect();
-					 if (peselNumberIsNumeric && comboBoxIsTaken){
+			 boolean peselIsInBase = false;
+			 if (peselLenghtCorrection==true){
+				 peselIsInBase = ifPeselInBase();
+			 }
+					 if (peselLenghtCorrection && comboBoxIsTaken && peselIsInBase){
 				       return true;
 				     }
 				     else {
 				       return false;
 				    }
 		}	
-			public boolean ifPeselCorrect(){
+			private boolean ifPeselInBase() {		
+			for(int i = 0;i<actualVoters.size();i++){
+				if(getPeselField().getText().equals(actualVoters.get(i).getPesel())){
+					return true;
+				}
+			}
+			return false;
+		}
+
+			public boolean ifPeselLenghtCorrect(){
 				boolean isPeselCorrect = (peselField.getText().length()==11) ? true: false;
 				return isPeselCorrect;
 			}	

@@ -1,18 +1,18 @@
 package starterKids.votingProgram;
 
-import hibernate.service.SpringConnectionWithBase;
+//import hibernate.service.SpringConnectionWithBase;
 
 import java.awt.EventQueue;
 import java.util.Scanner;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+//import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import starterKids.votingProgram.Class.MyFrame;
 
 
 public class VotingProgram
 {	
-	static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+	//static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 	
 	static MyFrame window;
 	static Scanner scan = new Scanner(System.in);
@@ -53,8 +53,8 @@ public class VotingProgram
 	}
 	
 	private static void connectWithDatebase(){
-		SpringConnectionWithBase connectBase = new SpringConnectionWithBase(context);
-		connectBase.dateBaseMenu();
+	//	SpringConnectionWithBase connectBase = new SpringConnectionWithBase(context);
+	//	connectBase.dateBaseMenu();
 	}
 	
     

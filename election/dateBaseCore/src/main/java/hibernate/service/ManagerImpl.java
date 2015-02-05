@@ -4,7 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import hibernate.dao.CandidateDAO;
+import hibernate.dao.VoterDAO;
 import hibernate.dao.ZipCodesDAO;
+import hibernate.model.Candidates;
+import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,12 @@ public class ManagerImpl implements Manager{
 
 	@Autowired
 	ZipCodesDAO zipCodeDAO;
+	
+	@Autowired
+	VoterDAO voterDAO;
+	
+	@Autowired 
+	CandidateDAO candidateDAO;
 	
 	public void setZipCodesDAO(ZipCodesDAO zipCodeDAO) {
         this.zipCodeDAO = zipCodeDAO;
@@ -45,7 +55,17 @@ public class ManagerImpl implements Manager{
 		return zipCodeDAO.findAll();
 	}
 
-	
-	
+	@Override
+	public List<Voters> findAllVoters(){
+		return voterDAO.findAll();
+	}
+	@Override
+	public List<Candidates> findAllCandidates(){
+		return candidateDAO.findAll();
+	}
+//	@Override
+//	public List<Voters> findCorrectVoters(ZipCodes zipCode){
+		
+	//}
 	
 }
