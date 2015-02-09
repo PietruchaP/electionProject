@@ -2,6 +2,7 @@ package hibernate.service;
 
 import hibernate.dao.ZipCodesDAO;
 import hibernate.model.ZipCodes;
+import hibernate.service.interfaces.ManagerZipCode;
 
 import java.util.Scanner;
 
@@ -38,7 +39,7 @@ public class SpringConnectionWithBase {
 	}
 	
 	private void createZipCode(){
-		Manager manager = context.getBean(ManagerImpl.class);		  
+		ManagerZipCode manager = context.getBean(ManagerZipCodeImpl.class);		  
 		ZipCodesDAO zipCodeDAO = context.getBean(ZipCodesDAO.class);		
 		ZipCodes zipcode = new ZipCodes();
 		zipcode.setZipCodes("60-777");

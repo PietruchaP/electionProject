@@ -5,7 +5,7 @@ import java.util.List;
 import hibernate.model.Candidates;
 import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
-import hibernate.service.Manager;
+import hibernate.service.interfaces.ManagerZipCode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class Controler {
+public class ControlerZipCode {
 	
 	@Autowired
-	private Manager manager;
+	private ManagerZipCode managerZipCode;
+	
 	
 	@RequestMapping(value = RestURs.DUMMY, method = RequestMethod.GET)
 	public @ResponseBody ZipCodes getDummy() {
@@ -34,24 +35,19 @@ public class Controler {
 
 		ZipCodes zipCode = new ZipCodes();
 		zipCode.setId(zipCodeId);
-		manager.retriveZipCode(zipCode);
-		return manager.retriveZipCode(zipCode);
+		managerZipCode.retriveZipCode(zipCode);
+		return managerZipCode.retriveZipCode(zipCode);
 	}
 	
 	 @RequestMapping(value =  RestURs.GET_ALL_ZIPCODES, method = RequestMethod.GET)
 	    public @ResponseBody List<ZipCodes> getAllZipCodes() {
-	        return manager.findAllZipCode();
+	        return managerZipCode.findAllZipCode();
 	    }
 	 
-	 @RequestMapping(value =  RestURs.GET_ALL_PESELS, method = RequestMethod.GET)
-	    public @ResponseBody List<Voters> getAllVoters() {
-	        return manager.findAllVoters();
+	 @RequestMapping(value =  RestURs.GET_ZIPCODE_BY_STRING_ZIP, method = RequestMethod.GET)
+	    public @ResponseBody List<ZipCodes> getZipByZipCode(@PathVariable("zipCode") String zipCode) {
+	        return managerZipCode.findZipByZipCode(zipCode);
 	    }
-	 @RequestMapping(value =  RestURs.GET_ALL_CANDIDATE, method = RequestMethod.GET)
-	    public @ResponseBody List<Candidates> getAllCandidates() {
-	        return manager.findAllCandidates();
-	    }
-	// @RequestMapping(.................)
-	// public void createZipCode(@RequestBody ZipCodes zipCode){ .create.
+
 	 
 }

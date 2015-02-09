@@ -9,5 +9,7 @@ public class RestURs {
 	public static final String DELETE_ZIPCODE = "/rest/zipCodes/delete/{id}";
 	public static final String GET_CANDIDATE = "/rest/candidate/{id}";
 	public static final String GET_ALL_CANDIDATE = "/rest/candidate";
-	public static final String GET_ALL_PESEL = "/rest/pesels";
+	public static final String GET_ALL_PESELS = "/rest/pesels";
+	public static final String GET_CORRECT_PESELS = "/rest/correctPesels/{pesel}";
+	public static final String GET_ZIPCODE_BY_STRING_ZIP = "/rest/zipCodeString/{zipCode}";
 }

@@ -49,6 +49,7 @@ public class LoginPanel extends JPanel {
 	private List<Voters> voters = null;
 	private List<Voters> actualVoters = new ArrayList<Voters>();
 	private List<ZipCodes> zips = new ArrayList<ZipCodes>();
+	private List<ZipCodes> actualZip = new ArrayList<ZipCodes>();
 	private ZipCodes zipek = new ZipCodes();
 	
 	public ZipCodes getZipek() {
@@ -62,8 +63,7 @@ public class LoginPanel extends JPanel {
 		addElementToLoginPanel();
 		// TEMPORARY This under that line//
 		RestTemplate restTemplate = new RestTemplate();
-		voters = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_PESEL, Voters[].class));
-	    
+		voters = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_PESELS, Voters[].class));
 	}
 	
 		private void createElementsForPanels(){
@@ -186,53 +186,44 @@ public class LoginPanel extends JPanel {
 		 zipCodeBox.addActionListener(new ActionListener() {		
 			public void actionPerformed(ActionEvent e) {
 				saveCorrectZipCode();
-				loadNewPeselsFromBase();
 				loginButton.setEnabled(checkIfLoginButtonAvailable());
 			}
 
 			private void saveCorrectZipCode() {
-				
-				for(int i =0; i< zips.size();i++){
-					if(zips.get(i).getZipCodes().equals(zipCodeBox.getSelectedItem().toString())){
-						zipek = zips.get(i);
-					}
-				}
+				RestTemplate restTemplate = new RestTemplate();
+				actualZip.clear();
+				actualZip = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ZIPCODE_BY_STRING_ZIP, ZipCodes[].class, zipCodeBox.getSelectedItem().toString() ));
+				zipek = actualZip.get(0);
+			//	for(int i =0; i< zips.size();i++){
+			//		if(zips.get(i).getZipCodes().equals(zipCodeBox.getSelectedItem().toString())){
+			//			zipek = zips.get(i);
+			//		}
+			//	}
 				
 			}
 
-			private void loadNewPeselsFromBase() {
-				actualVoters.clear();
-				System.out.println(zipek.getId());
-				for(int i =0; i< voters.size();i++){
-					if(voters.get(i).getZipCode().getId()==(zipek.getId())){
-						actualVoters.add(voters.get(i));
-					}
-				}
-				
-			}
 		});
 	}   
 		public boolean checkIfLoginButtonAvailable() {	
 			 boolean peselLenghtCorrection = ifPeselLenghtCorrect();
 			 boolean comboBoxIsTaken = ifComboBoxCorrect();
-			 boolean peselIsInBase = false;
-			 if (peselLenghtCorrection==true){
-				 peselIsInBase = ifPeselInBase();
-			 }
-					 if (peselLenghtCorrection && comboBoxIsTaken && peselIsInBase){
+
+					 if (peselLenghtCorrection && comboBoxIsTaken){
 				       return true;
 				     }
 				     else {
 				       return false;
 				    }
 		}	
-			private boolean ifPeselInBase() {		
-			for(int i = 0;i<actualVoters.size();i++){
-				if(getPeselField().getText().equals(actualVoters.get(i).getPesel())){
+		public boolean isPeselInBase() {		
+
+				RestTemplate restTemplate = new RestTemplate();
+				actualVoters.clear();
+				actualVoters = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_CORRECT_PESELS, Voters[].class, getPeselField().getText()));
+				// mozna by zrobic by zipCode tez wchodzil jako zmienna.
+				if(zipek.getId() == actualVoters.get(0).getZipCode().getId())
 					return true;
-				}
-			}
-			return false;
+				return false;
 		}
 
 			public boolean ifPeselLenghtCorrect(){

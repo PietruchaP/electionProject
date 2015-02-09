@@ -25,8 +25,15 @@ public class MyFrame{
 			GroupButtonCheckSelected test = new GroupButtonCheckSelected();
 			String selectedCandidate = test.getSelectedButtonText(myCandidatePanel.getOptions());
 			
+			saveResults();
+			
 			replyPanel = new ResultPanel(selectedCandidate);
 			changePanel(replyPanel.getPanel());
+		}
+
+		private void saveResults() {
+			// TODO Auto-generated method stub
+			
 		}
 	};
 	
@@ -34,7 +41,7 @@ public class MyFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			PeselVerify peselVerification = new PeselVerify(loginPanel.getPeselField().getText());
-	    	if(peselVerification.isPeselCorrect()){
+	    	if(peselVerification.isPeselCorrect()&&loginPanel.isPeselInBase()){
 			    frame.setTitle("Okręg wyborczy:"+ loginPanel.getPeselField().getText());
 			    myCandidatePanel.setCandidateList(loginPanel.getZipek());
 			    myCandidatePanel.createCandidateAndAddToCandidatePanel();

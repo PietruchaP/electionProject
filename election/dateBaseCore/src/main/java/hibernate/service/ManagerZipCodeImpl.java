@@ -5,26 +5,23 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import hibernate.dao.CandidateDAO;
+import hibernate.dao.ResultsDAO;
 import hibernate.dao.VoterDAO;
 import hibernate.dao.ZipCodesDAO;
 import hibernate.model.Candidates;
+import hibernate.model.Results;
 import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
+import hibernate.service.interfaces.ManagerZipCode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Transactional
 @Service
-public class ManagerImpl implements Manager{
+public class ManagerZipCodeImpl implements ManagerZipCode{
 
 	@Autowired
 	ZipCodesDAO zipCodeDAO;
-	
-	@Autowired
-	VoterDAO voterDAO;
-	
-	@Autowired 
-	CandidateDAO candidateDAO;
 	
 	public void setZipCodesDAO(ZipCodesDAO zipCodeDAO) {
         this.zipCodeDAO = zipCodeDAO;
@@ -54,18 +51,14 @@ public class ManagerImpl implements Manager{
 	public List<ZipCodes> findAllZipCode(){
 		return zipCodeDAO.findAll();
 	}
-
-	@Override
-	public List<Voters> findAllVoters(){
-		return voterDAO.findAll();
-	}
-	@Override
-	public List<Candidates> findAllCandidates(){
-		return candidateDAO.findAll();
-	}
-//	@Override
-//	public List<Voters> findCorrectVoters(ZipCodes zipCode){
-		
-	//}
 	
+	@Override
+	public List<ZipCodes> findZipByZipCode(String zipCode){
+		return zipCodeDAO.loadZipByZipCode(zipCode);
+	}
+
+//	@Override
+//	public void insertResults(Results results) {
+//		resultsDAO.create(results);	
+//	}
 }
