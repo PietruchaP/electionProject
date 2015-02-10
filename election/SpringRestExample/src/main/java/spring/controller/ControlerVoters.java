@@ -24,7 +24,7 @@ public class ControlerVoters {
 	        return managerVoter.findAllVoters();
 	    }
 	 @RequestMapping(value =  RestURs.GET_CORRECT_PESELS, method = RequestMethod.GET)
-	    public @ResponseBody List<Voters> getCorrectVoters(@PathVariable("pesel") String pesel) {
+	    public @ResponseBody Voters getCorrectVoter(@PathVariable("pesel") String pesel) {
 	        return managerVoter.loadVotersByPesel(pesel);
 	    }
 	

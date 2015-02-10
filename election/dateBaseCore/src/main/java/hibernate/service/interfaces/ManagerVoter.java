@@ -12,5 +12,5 @@ public interface ManagerVoter {
 	@Transactional
 	public List<Voters> findAllVoters();
 	@Transactional
-	public List<Voters> loadVotersByPesel(String pesel);
+	public Voters loadVotersByPesel(String pesel);
 }

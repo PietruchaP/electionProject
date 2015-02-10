@@ -21,7 +21,7 @@ public interface ManagerZipCode {
 	@Transactional
 	public List<ZipCodes> findAllZipCode();
 	@Transactional
-	public List<ZipCodes> findZipByZipCode(String zipCode);
+	public ZipCodes findZipByZipCode(String zipCode);
 
 	//@Transactional
 	//void insertResults(Results results);

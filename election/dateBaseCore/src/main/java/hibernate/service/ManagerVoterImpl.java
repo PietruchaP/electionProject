@@ -24,7 +24,7 @@ public class ManagerVoterImpl implements ManagerVoter{
 		return voterDAO.findAll();
 	}
 	@Override
-	public List<Voters> loadVotersByPesel(String pesel){
+	public Voters loadVotersByPesel(String pesel){
 		return voterDAO.loadVotersByPesel(pesel);
 	}
 

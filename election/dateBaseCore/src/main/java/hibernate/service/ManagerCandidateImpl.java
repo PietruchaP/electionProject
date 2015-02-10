@@ -4,6 +4,7 @@ import java.util.List;
 
 import hibernate.dao.CandidateDAO;
 import hibernate.model.Candidates;
+import hibernate.model.ZipCodes;
 import hibernate.service.interfaces.ManagerCandidate;
 
 import javax.transaction.Transactional;
@@ -23,5 +24,10 @@ public class ManagerCandidateImpl implements ManagerCandidate{
 		return candidateDAO.findAll();
 	}
 	
+	@Override 
+	public List<Candidates> loadCorrectCandidate(int zipCodeID){
+		return candidateDAO.loadCorrectCandidate(zipCodeID);
+		
+	}
 	
 }

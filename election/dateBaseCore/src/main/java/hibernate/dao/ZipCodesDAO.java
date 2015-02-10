@@ -12,13 +12,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ZipCodesDAO extends GenericDaoImp<ZipCodes> {
 
-	public List<ZipCodes> loadZipByZipCode(String zipCode){	
-		
+	public ZipCodes loadZipByZipCode(String zipCode){	
+			
 		final Query query = this.entityManager.createQuery ("SELECT z FROM ZipCodes z where z.zipCodes= :zipCode");
-		query.setParameter("zipCode", zipCode);
+			query.setParameter("zipCode", zipCode);
+			
+			ZipCodes zip = (ZipCodes)  query.getSingleResult();
+	        return zip;
 		
-		List<ZipCodes> zip = (List<ZipCodes>)  query.getResultList();
-        return zip;
+		
+		
 	}
 }
 

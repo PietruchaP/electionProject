@@ -4,13 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import hibernate.dao.CandidateDAO;
-import hibernate.dao.ResultsDAO;
-import hibernate.dao.VoterDAO;
 import hibernate.dao.ZipCodesDAO;
-import hibernate.model.Candidates;
-import hibernate.model.Results;
-import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
 import hibernate.service.interfaces.ManagerZipCode;
 
@@ -53,7 +47,7 @@ public class ManagerZipCodeImpl implements ManagerZipCode{
 	}
 	
 	@Override
-	public List<ZipCodes> findZipByZipCode(String zipCode){
+	public ZipCodes findZipByZipCode(String zipCode){
 		return zipCodeDAO.loadZipByZipCode(zipCode);
 	}
 

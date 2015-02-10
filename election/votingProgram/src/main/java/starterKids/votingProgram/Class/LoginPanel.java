@@ -46,12 +46,14 @@ public class LoginPanel extends JPanel {
 
     private ActionListener loginButtonListener; 
     
-	private List<Voters> voters = null;
-	private List<Voters> actualVoters = new ArrayList<Voters>();
 	private List<ZipCodes> zips = new ArrayList<ZipCodes>();
-	private List<ZipCodes> actualZip = new ArrayList<ZipCodes>();
 	private ZipCodes zipek = new ZipCodes();
+	private Voters voter = new Voters();
 	
+	public Voters getVoter() {
+		return voter;
+	}
+
 	public ZipCodes getZipek() {
 		return zipek;
 	}
@@ -61,9 +63,6 @@ public class LoginPanel extends JPanel {
 		createElementsForPanels();
 		addElementsToSubPanels();
 		addElementToLoginPanel();
-		// TEMPORARY This under that line//
-		RestTemplate restTemplate = new RestTemplate();
-		voters = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_PESELS, Voters[].class));
 	}
 	
 		private void createElementsForPanels(){
@@ -191,15 +190,8 @@ public class LoginPanel extends JPanel {
 
 			private void saveCorrectZipCode() {
 				RestTemplate restTemplate = new RestTemplate();
-				actualZip.clear();
-				actualZip = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ZIPCODE_BY_STRING_ZIP, ZipCodes[].class, zipCodeBox.getSelectedItem().toString() ));
-				zipek = actualZip.get(0);
-			//	for(int i =0; i< zips.size();i++){
-			//		if(zips.get(i).getZipCodes().equals(zipCodeBox.getSelectedItem().toString())){
-			//			zipek = zips.get(i);
-			//		}
-			//	}
 				
+				zipek = (ZipCodes) restTemplate.getForObject(SERVER_URI+RestURs.GET_ZIPCODE_BY_STRING_ZIP, ZipCodes.class, zipCodeBox.getSelectedItem().toString() );
 			}
 
 		});
@@ -218,10 +210,10 @@ public class LoginPanel extends JPanel {
 		public boolean isPeselInBase() {		
 
 				RestTemplate restTemplate = new RestTemplate();
-				actualVoters.clear();
-				actualVoters = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_CORRECT_PESELS, Voters[].class, getPeselField().getText()));
-				// mozna by zrobic by zipCode tez wchodzil jako zmienna.
-				if(zipek.getId() == actualVoters.get(0).getZipCode().getId())
+
+				voter = (Voters) restTemplate.getForObject(SERVER_URI+RestURs.GET_CORRECT_PESELS, Voters.class, getPeselField().getText());
+
+				if(zipek.getId() == voter.getZipCode().getId())
 					return true;
 				return false;
 		}

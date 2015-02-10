@@ -35,7 +35,7 @@ public class ControlerZipCode {
 
 		ZipCodes zipCode = new ZipCodes();
 		zipCode.setId(zipCodeId);
-		managerZipCode.retriveZipCode(zipCode);
+	//	managerZipCode.retriveZipCode(zipCode);
 		return managerZipCode.retriveZipCode(zipCode);
 	}
 	
@@ -45,7 +45,7 @@ public class ControlerZipCode {
 	    }
 	 
 	 @RequestMapping(value =  RestURs.GET_ZIPCODE_BY_STRING_ZIP, method = RequestMethod.GET)
-	    public @ResponseBody List<ZipCodes> getZipByZipCode(@PathVariable("zipCode") String zipCode) {
+	    public @ResponseBody ZipCodes getZipByZipCode(@PathVariable("zipCode") String zipCode) {
 	        return managerZipCode.findZipByZipCode(zipCode);
 	    }
 

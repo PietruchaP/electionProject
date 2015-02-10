@@ -6,7 +6,8 @@ import javax.persistence.ManyToOne;
 
 @Embeddable
 public class ResultsPK {
-
+	
+	private int id;
 	private Voters voters;
 	private Candidates candidates;
 	private Elections elections;
@@ -35,5 +36,13 @@ public class ResultsPK {
 	
 	public void setCandidates(Candidates candidates){
 		this.candidates=candidates;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

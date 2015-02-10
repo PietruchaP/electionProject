@@ -10,4 +10,7 @@ public interface ManagerCandidate {
 	
 	@Transactional
 	public List<Candidates> findAllCandidates();
+	
+	@Transactional
+	public List<Candidates> loadCorrectCandidate(int zipCodeID);
 }

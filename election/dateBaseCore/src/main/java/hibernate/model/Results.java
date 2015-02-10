@@ -9,10 +9,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
-//przeksztalcamy baze
-//@Entity
-//@Table (name = "results")
+
+@Entity
+@Table (name = "results")
 @AssociationOverrides({
+	@AssociationOverride(name = "pk.id", joinColumns = @JoinColumn(name="id")),
 	@AssociationOverride(name = "pk.voters", joinColumns = @JoinColumn(name="voters_id")),
 	@AssociationOverride(name = "pk.elections", joinColumns = @JoinColumn(name="elections_id")),
 	@AssociationOverride(name = "pk.candidates", joinColumns = @JoinColumn(name="candidates_id"))
@@ -30,6 +31,14 @@ public class Results implements Serializable{
 		this.pk = pk;
 	}
 	
+	@Transient
+	public int getId(){
+		return getPK().getId();
+	}
+	
+	public void setId(int id) {
+		this.getPK().setId(id);
+	}
 	@Transient
 	public Voters getVoters(){
 		return getPK().getVoters();

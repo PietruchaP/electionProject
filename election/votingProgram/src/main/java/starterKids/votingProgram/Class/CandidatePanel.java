@@ -28,20 +28,38 @@ public class CandidatePanel extends JPanel {
 	private JPanel candidateButtonsPanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();	
 
-	private ButtonGroup options = new ButtonGroup();
+	
+	
+	private ButtonGroup possibleOptionChoice = new ButtonGroup();
 	private JButton acceptButton = new JButton("Zatwierdz");
 	private ActionListener acceptButtonListener;
 	
 	private List<Candidates> actualCandidates = new ArrayList<Candidates>();
-	private List<Candidates> candidates = new ArrayList<Candidates>();
-	public ButtonGroup getOptions() {
-		return options;
+	private Candidates selectedCandidate = new Candidates();
+	
+	public ButtonGroup getPossibleOptionChoice() {
+		return possibleOptionChoice;
 	}
 
 	ActionListener candidateButtonListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			acceptButton.setEnabled(true);
+			setSelectedCandidate();
+			
+		}
+
+		private void setSelectedCandidate() {
+			GroupButtonCheckSelected test = new GroupButtonCheckSelected();
+			
+			String selectedFromButtonGroup = test.getSelectedButtonText(getPossibleOptionChoice());
+			
+			for(int i = 0;i<actualCandidates.size();i++){
+				String checkString = new String(actualCandidates.get(i).getFirstname()+" "+actualCandidates.get(i).getSurname());
+				if(checkString.equals(selectedFromButtonGroup)){
+					selectedCandidate = actualCandidates.get(i);
+				}
+			}
 		}
 	};
 	
@@ -54,17 +72,11 @@ public class CandidatePanel extends JPanel {
 
 		addElementsToCandidatePanel();
 		
-		RestTemplate restTemplate = new RestTemplate();
-		candidates = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_CANDIDATE, Candidates[].class));
-		
 	}
 		
 		public void setCandidateList(ZipCodes actualZip){
-			for(int i =0; i< candidates.size();i++){
-				if(candidates.get(i).getZipCode().getId()==(actualZip.getId())){
-					actualCandidates.add(candidates.get(i));
-				}
-			}			
+			RestTemplate restTemplate = new RestTemplate();
+			actualCandidates = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_CANDIDATE_BY_ZIPCODE, Candidates[].class, actualZip.getId()));	
 		}
 	
 		public void setCandidatePanel() {
@@ -90,8 +102,7 @@ public class CandidatePanel extends JPanel {
 				candidateButtonsPanel.add(Box.createVerticalGlue());
 				candidateOption.addActionListener(candidateButtonListener);
 				candidateOption.setAlignmentX(CENTER_ALIGNMENT);
-				options.add(candidateOption);
-				System.out.println(candidates.get(i).getFirstname());
+				possibleOptionChoice.add(candidateOption);
 			}
 		}
 		
@@ -105,5 +116,13 @@ public class CandidatePanel extends JPanel {
 
 	public JPanel getPanel() {
 		return candidatePanel;
+	}
+
+	public Candidates getSelectedCandidate() {
+		return selectedCandidate;
+	}
+
+	public void setSelectedCandidate(Candidates selectedCandidate) {
+		this.selectedCandidate = selectedCandidate;
 	}
 }

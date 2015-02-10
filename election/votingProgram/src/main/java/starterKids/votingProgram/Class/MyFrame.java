@@ -1,5 +1,8 @@
 package starterKids.votingProgram.Class;
 
+import hibernate.model.Elections;
+import hibernate.model.Results;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -10,20 +13,25 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.springframework.web.client.RestTemplate;
+
+import restURls.RestURs;
+
 
 public class MyFrame{
-	
 	private JFrame frame;
-	
+	public static final String SERVER_URI = "http://localhost:8080/SpringRestExample";
 	private LoginPanel loginPanel;
 	private CandidatePanel myCandidatePanel;
 	private ResultPanel replyPanel;
-
+	private Elections election;
+	private int currentEleciton = 1;
+	
 	ActionListener acceptButtonListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			GroupButtonCheckSelected test = new GroupButtonCheckSelected();
-			String selectedCandidate = test.getSelectedButtonText(myCandidatePanel.getOptions());
+			String selectedCandidate = test.getSelectedButtonText(myCandidatePanel.getPossibleOptionChoice());
 			
 			saveResults();
 			
@@ -32,8 +40,13 @@ public class MyFrame{
 		}
 
 		private void saveResults() {
-			// TODO Auto-generated method stub
+			Results result = new Results();
+			result.setCandidates(myCandidatePanel.getSelectedCandidate());
+			result.setElections(election);
+			result.setVoters(loginPanel.getVoter());
 			
+			RestTemplate restTemplate = new RestTemplate();
+			restTemplate.postForLocation(SERVER_URI+RestURs.CREATE_RESULT, result);
 		}
 	};
 	
@@ -58,7 +71,15 @@ public class MyFrame{
     	createFrame(name);	
     	createPanels();
 		addFirstComponentsToPane(); 
+		setElection();
     }
+		private void setElection() {
+			
+		RestTemplate restTemplate = new RestTemplate();
+		election =  restTemplate.getForObject(SERVER_URI+RestURs.GET_ELECTIONS, Elections.class, currentEleciton);
+		System.out.println(election.getType());
+		
+	}
 		private void createFrame(String name) {
 			Dimension minimalsize = new Dimension(400,300);
 			frame = new JFrame(name);
