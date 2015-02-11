@@ -24,3 +24,4 @@ public class ControlerElections {
 		return managerElections.retriveElection(election);
 	}
 }
+//RequestBody

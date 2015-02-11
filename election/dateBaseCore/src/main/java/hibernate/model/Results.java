@@ -1,67 +1,64 @@
 package hibernate.model;
 
-import java.beans.Transient;
 import java.io.Serializable;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 @Entity
 @Table (name = "results")
-@AssociationOverrides({
-	@AssociationOverride(name = "pk.id", joinColumns = @JoinColumn(name="id")),
-	@AssociationOverride(name = "pk.voters", joinColumns = @JoinColumn(name="voters_id")),
-	@AssociationOverride(name = "pk.elections", joinColumns = @JoinColumn(name="elections_id")),
-	@AssociationOverride(name = "pk.candidates", joinColumns = @JoinColumn(name="candidates_id"))
-})
-public class Results implements Serializable{
-	
-	private ResultsPK pk = new ResultsPK();
-	
-	@EmbeddedId
-	private ResultsPK getPK(){
-		return pk;
-	}
-	
-	private void setPK(ResultsPK pk){
-		this.pk = pk;
-	}
-	
-	@Transient
+public class Results implements Serializable{	
+
+	private int id;	
+	private Voters voters;
+	private Candidates candidates;
+	private Elections elections;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column (name="id")
 	public int getId(){
-		return getPK().getId();
+		return id;
 	}
 	
 	public void setId(int id) {
-		this.getPK().setId(id);
+		this.id=id;
 	}
-	@Transient
+
+	@ManyToOne
+	@JoinColumn (name ="voters_id")
 	public Voters getVoters(){
-		return getPK().getVoters();
+		return voters;
 	}
 	
 	public void setVoters(Voters voters){
-		getPK().setVoters(voters);
+		this.voters = voters;
 	}
 	
-	@Transient
+	@ManyToOne
+	@JoinColumn (name ="elections_id")
 	public Elections getElections(){
-		return getPK().getElections();
+		return elections;
 	}
 	
 	public void setElections(Elections elections){
-		getPK().setElections(elections);
+		this.elections = elections;
 	}
 	
-	@Transient
+	@ManyToOne
+	@JoinColumn (name ="candidates_id")
 	public Candidates getCandidates(){
-		return getPK().getCandidates();
+		return candidates;
 	}
 	public void setCandidates(Candidates candidates){
-		getPK().setCandidates(candidates);
+		this.candidates = candidates;
 	}
 }
