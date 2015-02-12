@@ -1,7 +1,5 @@
 package hibernate.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -15,7 +13,7 @@ import javax.persistence.JoinColumn;
 
 @Entity
 @Table (name = "results")
-public class Results implements Serializable{	
+public class Results{	
 
 	private int id;	
 	private Voters voters;

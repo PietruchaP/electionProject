@@ -35,7 +35,6 @@ public class ControlerZipCode {
 
 		ZipCodes zipCode = new ZipCodes();
 		zipCode.setId(zipCodeId);
-	//	managerZipCode.retriveZipCode(zipCode);
 		return managerZipCode.retriveZipCode(zipCode);
 	}
 	
