@@ -26,7 +26,7 @@ public class ZipCodes {
 	}
 	
 	public String getZipCodes() {
-		return zipCodes;
+		return zipCodes; 
 	}
 	public void setZipCodes(String zipCodes) {
 		this.zipCodes = zipCodes;
