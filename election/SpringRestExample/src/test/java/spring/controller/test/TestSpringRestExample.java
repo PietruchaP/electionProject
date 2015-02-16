@@ -1,4 +1,4 @@
-package spring.tests;
+package spring.controller.test;
 
 import hibernate.model.ZipCodes;
 
