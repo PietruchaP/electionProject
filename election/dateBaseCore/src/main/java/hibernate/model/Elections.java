@@ -23,6 +23,17 @@ public class Elections {
 		@Column (name = "type")
 		private String type;
 		
+		public Elections(){
+			
+		}
+		public Elections(int id){
+			this.id = id;
+		}
+		public Elections(int id, Date date, String type){
+			this.id = id;
+			this.election_date = date;
+			this.type = type;
+		}
 		public int getId() {
 			return id;
 		}

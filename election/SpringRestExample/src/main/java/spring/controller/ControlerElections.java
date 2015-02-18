@@ -18,9 +18,7 @@ public class ControlerElections {
 		
 	@RequestMapping(value = RestURs.GET_ELECTIONS, method = RequestMethod.GET)
 	public @ResponseBody Elections getElections(@PathVariable("id") int electionId) {
-
-		Elections election = new Elections();
-		election.setId(electionId);
+		Elections election = new Elections(electionId);
 		return managerElections.retriveElection(election);
 	}
 }

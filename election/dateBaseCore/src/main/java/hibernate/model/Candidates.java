@@ -33,6 +33,14 @@ public class Candidates {
 	public Candidates() {
 	}
 
+	public Candidates(int id, String firstname, String surname, ZipCodes zipCode) {
+		
+		this.id = id;
+		this.firstname = firstname;
+		this.surname = surname;
+		this.zipCode = zipCode;
+	}
+
 	public int getId() {
 		return id;
 	}

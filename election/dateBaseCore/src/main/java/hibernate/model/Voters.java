@@ -23,7 +23,14 @@ public class Voters {
 	@ManyToOne
 	@JoinColumn (name = "zip_codes_id")
 	private ZipCodes zipCode;
-	
+	public Voters(){
+		
+	}
+	public Voters(int id, String pesel, ZipCodes zipCode) {
+		this.id = id;
+		this.pesel = pesel;
+		this.zipCode = zipCode;
+	}
 	public int getId() {
 		return id;
 	}

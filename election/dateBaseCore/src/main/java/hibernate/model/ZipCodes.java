@@ -18,6 +18,17 @@ public class ZipCodes {
 	@Column (name ="zip_code")
 	private String zipCodes;
 	
+	public ZipCodes() {
+	}
+	public ZipCodes(int id) {
+		this.id = id;
+	}
+	
+	public ZipCodes(int id, String zipcode) {
+		this.id= id;
+		this.zipCodes = zipcode;
+	}
+
 	public int getId() {
 		return id;
 	}
