@@ -71,16 +71,5 @@ public class TestControllerVoters {
 	    	
 			mockMvc.perform(get(RestURs.GET_ALL_PESELS)).andExpect(status().isOk()).andExpect(content().string(answer));
 	    }
-//	    @Test
-//	    public void shouldGetAllZipCode() throws Exception{
-//	    	List<ZipCodes> possibleList = new ArrayList<ZipCodes>();
-//	    	possibleList.add(new ZipCodes(1,"53-020"));
-//	    	possibleList.add(new ZipCodes(2,"51-120"));
-//	    	String answer = "[{\"id\":1,\"zipCodes\":\"53-020\"},{\"id\":2,\"zipCodes\":\"51-120\"}]";
-//	    	
-//	    	Mockito.when(manager.findAllZipCode()).thenReturn(possibleList);
-//	    	
-//			mockMvc.perform(get(RestURs.GET_ALL_ZIPCODES)).andExpect(status().isOk()).andExpect(content().string(answer));
-//	    }
-//	
+
 }

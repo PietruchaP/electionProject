@@ -1,6 +1,5 @@
 package Converter;
 
-import hibernate.model.Candidates;
 
 public abstract class ConvertGenericTOsWithBOs<TO,BO> implements ConvertGeneric<TO,BO> {
 

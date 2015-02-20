@@ -73,9 +73,9 @@ public class TestControllerZipCode {
 	    	/////////////Mockito.when(manager.retriveZipCode(new ZipCodes(1))).thenReturn(new ZipCodes(1,"53-020"));
 	    	String answer = "{\"id\":1,\"zipCodes\":\"53-020\"}";
 			
-	    	Mockito.when(manager.findZipByZipCode(new String("53-020"))).thenReturn(new ZipCodes(1,"53-020"));
+	    	Mockito.when(manager.findZipByZipCode("53-020")).thenReturn(new ZipCodes(1,"53-020"));
 	    	
-			mockMvc.perform(get(RestURs.GET_ZIPCODE_BY_STRING_ZIP)).andExpect(status().isOk()).andExpect(content().string(answer));
+			mockMvc.perform(get("/rest/zipCodeString/53-020")).andExpect(status().isOk()).andExpect(content().string(answer));
 	    }
 	    
 	    @Test
@@ -89,32 +89,5 @@ public class TestControllerZipCode {
 	    	
 			mockMvc.perform(get(RestURs.GET_ALL_ZIPCODES)).andExpect(status().isOk()).andExpect(content().string(answer));
 	    }
-
-//	    @Test
-//	    @Transactional
-//	    public void shouldCreateResults() throws Exception{
-//	        RestTemplate restTemplate = new RestTemplate();
-//	    	Results result = new Results();
-//	    	Candidates candidate = new Candidates();
-//	    	Elections election = new Elections();
-//	    	Voters voter = new Voters();
-//	    	List<Candidates> actualCandidates = new ArrayList<Candidates>();
-//	    	List<ZipCodes> zips = new ArrayList<ZipCodes>();
-//	    	int currentEleciton = 1;
-//	    	
-//	    
-//	        zips = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_ALL_ZIPCODES, ZipCodes[].class));
-//			
-//			actualCandidates = Arrays.asList(restTemplate.getForObject(SERVER_URI+RestURs.GET_CANDIDATE_BY_ZIPCODE, Candidates[].class, zips.get(0).getId()));	
-//			voter = (Voters) restTemplate.getForObject(SERVER_URI+RestURs.GET_CORRECT_PESELS, Voters.class,"60030654442");
-//		    election =  restTemplate.getForObject(SERVER_URI+RestURs.GET_ELECTIONS, Elections.class, currentEleciton);
-//			result.setCandidates(actualCandidates.get(0));
-//			result.setElections(election);
-//			result.setVoters(voter);
-//			
-//			restTemplate.postForLocation(SERVER_URI+RestURs.CREATE_RESULT, result);
-//	    	 mockMvc.perform(post(RestURs.CREATE_RESULT).content("{\"login\":\"Login\",\"password\":\"Password\"}").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());
-//	   	  
-//	    }
 	
 }
