@@ -65,7 +65,7 @@ public class TestControllerVoters {
 	    	possibleVoterList.add(new Voters(1,"90122001722", zipCode));
 	    	possibleVoterList.add(new Voters(2,"80102001776", zipCode));
 	    	
-	    	String answer = "[{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},{\"id\":1,\"pesel\":\"80102001776\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}}]";
+	    	String answer = "[{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},{\"id\":2,\"pesel\":\"80102001776\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}}]";
 	    	
 	    	Mockito.when(manager.findAllVoters()).thenReturn(possibleVoterList);
 	    	

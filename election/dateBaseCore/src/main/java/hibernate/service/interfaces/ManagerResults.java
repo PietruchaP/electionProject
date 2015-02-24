@@ -8,4 +8,6 @@ public interface ManagerResults {
 
 	@Transactional
 	public void insertResults(Results result);
+
+	public Results retriveResults(Results result);
 }

@@ -7,7 +7,13 @@ public class Elections {
 		private int id;
 		private String type;
 		private Date election_date;
-		
+		public Elections(){
+		}
+		public Elections(int id, Date election_date, String type) {
+			this.id = id;
+			this.election_date=election_date;
+			this.type=type;
+		}
 		public int getId() {
 			return id;
 		}

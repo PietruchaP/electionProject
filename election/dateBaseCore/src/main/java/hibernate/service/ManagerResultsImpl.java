@@ -23,4 +23,9 @@ public class ManagerResultsImpl implements ManagerResults{
 		
 	}
 
+	@Override
+	public Results retriveResults(Results result) {
+		return resultsDAO.retrive(result.getId());
+	}
+
 }

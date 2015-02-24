@@ -21,7 +21,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.test.web.client.response.MockRestResponseCreators;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import spring.controller.ControlerElections;
@@ -38,7 +40,7 @@ public class TestControllerElections {
 	   
 	   @InjectMocks
 	   @Spy
-	   private ControlerElections electionsController = new ControlerElections();
+	   private ControlerElections electionsController;
 	   
 	   @Before
 	    public void setUp() {
@@ -52,10 +54,10 @@ public class TestControllerElections {
 	    	Date inputDate = dateFormat.parse(inputStr);
 	    	Elections eco = new Elections(1, inputDate, "Wybory samorządowe 2014");
 	    	System.out.println(eco.getElection_date());
-	    	Mockito.when(manager.retriveElection(new Elections(1))).thenReturn(new Elections(1, inputDate, "Wybory samorządowe 2014"));
+	    	Mockito.when(manager.retriveElection(new Elections(1))).thenReturn(eco);
 	    	String answer = "{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}";
 
-			mockMvc.perform(get("/rest/elections/1")).andExpect(status().isOk());//.andExpect(content().string(answer));
+			mockMvc.perform(get("/rest/elections/1")).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
 
 	    }
 }

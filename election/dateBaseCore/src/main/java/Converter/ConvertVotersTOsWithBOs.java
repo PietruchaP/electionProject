@@ -3,10 +3,10 @@ package Converter;
 import hibernate.model.Voters;
 import hibernate.model.ZipCodes;
 
-public class ConvertVotersTOsWithBOs {
+public class ConvertVotersTOsWithBOs implements ConvertGeneric<TOs.Voters,Voters> {
 
-
-	public Voters ConvertToToBo(TOs.Voters votersTO){
+	@Override
+	public Voters convertToToBo(TOs.Voters votersTO){
 		Voters votersBO = new Voters();
 		votersBO.setId(votersTO.getId());
 		votersBO.setPesel(votersTO.getPesel());
@@ -14,8 +14,8 @@ public class ConvertVotersTOsWithBOs {
 		votersBO.setZipCode(zipCodesBO);
 		return votersBO;
 	}
-	
-	public TOs.Voters ConvertBoToTo(Voters votersBO){
+	@Override
+	public TOs.Voters convertBoToTo(Voters votersBO){
 		TOs.Voters votersTO = new TOs.Voters();
 		votersTO.setId(votersBO.getId());
 		votersTO.setPesel(votersBO.getPesel());

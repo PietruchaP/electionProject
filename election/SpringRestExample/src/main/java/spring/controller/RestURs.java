@@ -21,4 +21,6 @@ public class RestURs {
 	public static final String GET_ELECTIONS = "/rest/elections/{id}";
 	//--------------------------------------------------------------//
 	public static final String CREATE_RESULT = "/rest/result";
+	public static final String GET_RESULT = "/rest/result/{id}";
+	
 }

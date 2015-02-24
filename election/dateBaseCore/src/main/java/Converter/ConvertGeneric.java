@@ -1,6 +1,6 @@
 package Converter;
 
 public interface ConvertGeneric<TO,BO> {
-	public void ConvertToToBo(TO genericTO);
-	public void ConvertBoToTo();
+	public BO convertToToBo(TO genericTO);
+	public TO convertBoToTo(BO genericBO);
 }

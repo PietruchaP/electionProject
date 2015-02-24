@@ -20,6 +20,15 @@ public class Results{
 	private Candidates candidates;
 	private Elections elections;
 
+	public Results(){
+		
+	}
+	public Results(int id, Voters voters,Candidates candidates,Elections elections){
+		this.id = id;
+		this.voters = voters;
+		this.candidates = candidates;
+		this.elections = elections;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column (name="id")

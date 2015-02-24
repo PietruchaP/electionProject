@@ -65,12 +65,14 @@ public class TestControllerResults {
 	    	result.setCandidates(candidate);
 	    	result.setVoters(voter);   	
 
-	    	String answer = "{\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}} , \"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},  \"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}";
-
+	    	//String sended = "{\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}} , \"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},  \"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
+		    
+	    	String answer = "{\"id\":1,\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}} , \"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},  \"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
+	    //	{"id":1,"voters":{"id":1,"pesel":"90122001722","zipCode":{"id":1,"zipCodes":"53-020"}},"candidates":{"id":6,"firstname":"Waldemar","surname":"BEDNARZ","zipCode":{"id":1,"zipCodes":"53-020"}},"elections":{"id":1,"election_date":1416092400000,"type":"Wybory samorządowe 2014"}}
 	    	
 	    	System.out.println(result.toString());
 		//	mockMvc.perform(post("/rest/result").contentType(MediaType.APPLICATION_FORM_URLENCODED).param(name, values)).andExpect(content().string(result.toString())); // andExpect(status().isOk()).andExpect(content().string(answer));
-	    	mockMvc.perform(post("/rest/result").content(answer).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());	
+	    	mockMvc.perform(post("/rest/result").content(result.toString()).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk()).andExpect(content().string(answer));	
 	    	//  mockMvc.perform(post("/user/create").content("{\"login\":\"Login\",\"password\":\"Password\"}").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());	    
 
 	    }
