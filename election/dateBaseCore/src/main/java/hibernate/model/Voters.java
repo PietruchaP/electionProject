@@ -13,6 +13,38 @@ import javax.persistence.Table;
 @Table (name = "voters")
 public class Voters {
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((pesel == null) ? 0 : pesel.hashCode());
+		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Voters other = (Voters) obj;
+		if (id != other.id)
+			return false;
+		if (pesel == null) {
+			if (other.pesel != null)
+				return false;
+		} else if (!pesel.equals(other.pesel))
+			return false;
+		if (zipCode == null) {
+			if (other.zipCode != null)
+				return false;
+		} else if (!zipCode.equals(other.zipCode))
+			return false;
+		return true;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) @Column (name="id")
 	private int id;

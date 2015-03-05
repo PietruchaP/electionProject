@@ -20,10 +20,12 @@ import hibernate.service.interfaces.ManagerZipCode;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -32,6 +34,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import spring.controller.ControlerResults;
 import spring.controller.ControlerZipCode;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestControllerResults {
    public static final String SERVER_URI = "http://localhost:8080/SpringRestExample";
 	   
@@ -48,7 +51,27 @@ public class TestControllerResults {
 	    public void setUp() {
 	        mockMvc = MockMvcBuilders.standaloneSetup(resultsController).build();
 	    }
-	   	
+	   
+	   @Test
+	    public void shouldGetOneResult() throws Exception {
+		    String inputStr = "2014-11-16";
+	    	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    	Date inputDate = dateFormat.parse(inputStr);
+	    	
+	    	ZipCodes zipCode= new ZipCodes(1,"53-020");
+	      	Candidates candidate = new Candidates(1,"Piotr","Pietrucha", zipCode);
+	    	Voters voter = new Voters(1,"90122001722", zipCode);
+	    	Elections elections = new Elections(1, inputDate, "Wybory samorządowe 2014");
+	    	
+//	    	result.setElections(elections);
+//	    	result.setCandidates(candidate);
+//	    	result.setVoters(voter); 
+	    	
+	    	Mockito.when(manager.retriveResults(new Results(1))).thenReturn(new Results(1,voter,candidate,elections));
+	    	String answer = "{\"id\":1,\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},\"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},\"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
+	    	mockMvc.perform(get("/rest/result/1")).andExpect(status().isOk()).andExpect(content().string(answer));
+	    }
+	  
 	    @Test
 	    public void shouldSaveOneResult() throws Exception {
 	    	String inputStr = "2014-11-16";
@@ -65,16 +88,12 @@ public class TestControllerResults {
 	    	result.setCandidates(candidate);
 	    	result.setVoters(voter);   	
 
-	    	//String sended = "{\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}} , \"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},  \"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
-		    
-	    	String answer = "{\"id\":1,\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}} , \"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},  \"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
-	    //	{"id":1,"voters":{"id":1,"pesel":"90122001722","zipCode":{"id":1,"zipCodes":"53-020"}},"candidates":{"id":6,"firstname":"Waldemar","surname":"BEDNARZ","zipCode":{"id":1,"zipCodes":"53-020"}},"elections":{"id":1,"election_date":1416092400000,"type":"Wybory samorządowe 2014"}}
+	    	String sended = "{\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},\"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},\"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
+	    	
+	    	//String answer = "{\"id\":1,\"voters\":{\"id\":1,\"pesel\":\"90122001722\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},\"candidates\":{\"id\":1,\"firstname\":\"Piotr\",\"surname\":\"Pietrucha\",\"zipCode\":{\"id\":1,\"zipCodes\":\"53-020\"}},\"elections\":{\"id\":1,\"election_date\":1416092400000,\"type\":\"Wybory samorządowe 2014\"}}";
 	    	
 	    	System.out.println(result.toString());
-		//	mockMvc.perform(post("/rest/result").contentType(MediaType.APPLICATION_FORM_URLENCODED).param(name, values)).andExpect(content().string(result.toString())); // andExpect(status().isOk()).andExpect(content().string(answer));
-	    	mockMvc.perform(post("/rest/result").content(result.toString()).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk()).andExpect(content().string(answer));	
-	    	//  mockMvc.perform(post("/user/create").content("{\"login\":\"Login\",\"password\":\"Password\"}").contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(MockMvcResultMatchers.status().isOk());	    
-
+	    	mockMvc.perform(post("/rest/result").content(sended).contentType(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());//.andExpect(content().string(answer));	
 	    }
 
 }
